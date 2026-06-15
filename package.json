@@ -1,0 +1,36 @@
+{
+  "name": "ep_pads_view",
+  "description": "A ready-made HTML page listing all pads with their creator and last-edited date. A thin UI on top of ep_pads_api — install both and open the page, no frontend coding required.",
+  "version": "1.0.2",
+  "author": {
+    "name": "Ivan Forkaliuk",
+    "url": "https://github.com/forkivan"
+  },
+  "license": "Apache-2.0",
+  "keywords": [
+    "etherpad",
+    "plugin",
+    "ep_plugin",
+    "ep",
+    "pads",
+    "padlist",
+    "dashboard",
+    "html"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/forkivan/ep_pads_view.git"
+  },
+  "bugs": {
+    "url": "https://github.com/forkivan/ep_pads_view/issues"
+  },
+  "homepage": "https://github.com/forkivan/ep_pads_view",
+  "peerDependencies": {
+    "ep_etherpad-lite": ">=1.8.6",
+    "ep_pads_api": "*",
+    "ep_current_user": "*"
+  },
+  "engines": {
+    "node": ">=12.13.0"
+  }
+}

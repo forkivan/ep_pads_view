@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pads</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 2rem auto; max-width: 920px; color: #222; }
+    h1 { margin: 0 0 .25rem; }
+    .who { color: #666; margin: 0 0 1.25rem; font-size: .9rem; }
+    .toolbar { display: flex; align-items: center; gap: 1rem; margin-bottom: .75rem; }
+    #filter { flex: 1; padding: .5rem .7rem; font-size: .95rem; border: 1px solid #ccc; border-radius: 6px; }
+    #filter:focus { outline: none; border-color: #1565c0; box-shadow: 0 0 0 2px rgba(21,101,192,.15); }
+    #count { color: #888; font-size: .85rem; white-space: nowrap; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { text-align: left; padding: .55rem .75rem; border-bottom: 1px solid #e5e5e5; }
+    th { font-size: .8rem; text-transform: uppercase; letter-spacing: .03em; color: #888; cursor: pointer; user-select: none; white-space: nowrap; }
+    th:hover { color: #1565c0; }
+    th .arrow { opacity: .4; font-size: .7rem; }
+    th.sorted .arrow { opacity: 1; color: #1565c0; }
+    tr:hover td { background: #fafafa; }
+    a { color: #1565c0; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .muted { color: #bbb; }
+    .empty { color: #888; padding: 2rem 0; }
+    #noresults { color: #888; padding: 1.5rem 0; display: none; }
+  </style>
+</head>
+<body>
+  <h1>Pads</h1>
+  <% if (user) { %>
+    <p class="who">Logged in as <%= user.displayName || user.sub %></p>
+  <% } %>
+
+  <% if (!pads.length) { %>
+    <p class="empty">No pads yet.</p>
+  <% } else { %>
+    <div class="toolbar">
+      <input id="filter" type="search" placeholder="Filter by pad name or creator…" autocomplete="off">
+      <span id="count"></span>
+    </div>
+
+    <table id="pads">
+      <thead>
+        <tr>
+          <th data-key="id">Pad <span class="arrow"></span></th>
+          <th data-key="creator">Creator <span class="arrow"></span></th>
+          <th data-key="edited">Last edited <span class="arrow"></span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% pads.forEach(function (p) { %>
+          <tr data-id="<%= p.id %>" data-creator="<%= p.creator || '' %>" data-edited="<%= p.lastEdited || '' %>">
+            <td><a href="/p/<%= encodeURIComponent(p.id) %>"><%= p.id %></a></td>
+            <td><% if (p.creator) { %><%= p.creator %><% } else { %><span class="muted">—</span><% } %></td>
+            <td><% if (p.lastEdited) { %><%= p.lastEdited %><% } else { %><span class="muted">—</span><% } %></td>
+          </tr>
+        <% }); %>
+      </tbody>
+    </table>
+    <p id="noresults">No pads match your filter.</p>
+
+    <script>
+      (function () {
+        var table = document.getElementById('pads');
+        var tbody = table.tBodies[0];
+        var rows = Array.prototype.slice.call(tbody.rows);
+        var filter = document.getElementById('filter');
+        var count = document.getElementById('count');
+        var noresults = document.getElementById('noresults');
+        var headers = table.tHead.rows[0].cells;
+        var sortKey = null, sortDir = 1;
+
+        function updateCount() {
+          var visible = rows.filter(function (r) { return r.style.display !== 'none'; }).length;
+          count.textContent = visible + ' / ' + rows.length;
+          noresults.style.display = visible ? 'none' : 'block';
+        }
+
+        // --- Filter ---
+        filter.addEventListener('input', function () {
+          var q = filter.value.trim().toLowerCase();
+          rows.forEach(function (r) {
+            var hay = (r.getAttribute('data-id') + ' ' + r.getAttribute('data-creator')).toLowerCase();
+            r.style.display = (!q || hay.indexOf(q) !== -1) ? '' : 'none';
+          });
+          updateCount();
+        });
+
+        // --- Sort ---
+        function sortBy(key, th) {
+          sortDir = (sortKey === key) ? -sortDir : 1;
+          sortKey = key;
+          var attr = 'data-' + key;
+          rows.sort(function (a, b) {
+            var x = a.getAttribute(attr) || '';
+            var y = b.getAttribute(attr) || '';
+            // Empty values always sink to the bottom regardless of direction.
+            if (!x && y) return 1;
+            if (x && !y) return -1;
+            if (x === y) return 0;
+            return (x > y ? 1 : -1) * sortDir;
+          });
+          rows.forEach(function (r) { tbody.appendChild(r); });
+
+          for (var i = 0; i < headers.length; i++) {
+            var h = headers[i];
+            var a = h.querySelector('.arrow');
+            if (h === th) { h.classList.add('sorted'); a.textContent = sortDir === 1 ? '▲' : '▼'; }
+            else { h.classList.remove('sorted'); a.textContent = ''; }
+          }
+        }
+
+        for (var i = 0; i < headers.length; i++) {
+          (function (th) {
+            th.addEventListener('click', function () { sortBy(th.getAttribute('data-key'), th); });
+          })(headers[i]);
+        }
+
+        updateCount();
+      })();
+    </script>
+  <% } %>
+</body>
+</html>

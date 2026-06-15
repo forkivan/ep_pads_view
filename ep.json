@@ -1,0 +1,10 @@
+{
+  "parts": [
+    {
+      "name": "ep_pads_view",
+      "hooks": {
+        "expressCreateServer": "ep_pads_view/index"
+      }
+    }
+  ]
+}
