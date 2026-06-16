@@ -2,7 +2,7 @@
 
 A ready-made **HTML page** that lists all pads with their **creator** and
 **last-edited date**. It's a thin UI layer on top of
-**[ep_pads_api](https://github.com/forkivan/ep_pads_api)** — install both, open
+**[ep_pads_api](https://www.npmjs.com/package/ep_pads_api)** — install both, open
 the page, done. No frontend coding required.
 
 If instead you want to build your own dashboard/site, you don't need this plugin
