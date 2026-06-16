@@ -1,7 +1,7 @@
 {
   "name": "ep_pads_view",
   "description": "A ready-made HTML page listing all pads with their creator and last-edited date. A thin UI on top of ep_pads_api — install both and open the page, no frontend coding required.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": {
     "name": "Ivan Forkaliuk",
     "url": "https://github.com/forkivan"

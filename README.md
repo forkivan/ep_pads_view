@@ -13,8 +13,8 @@ at all — just use the JSON from `ep_pads_api` directly.
 This plugin reuses the data layers of two sibling plugins in-process, so install
 all three:
 
-- **`ep_pads_api`** — provides the pad list.
-- **`ep_current_user`** — provides the logged-in user shown in the header.
+- **[ep_pads_api](https://www.npmjs.com/package/ep_pads_api)** — provides the pad list.
+- **[ep_current_user](https://www.npmjs.com/package/ep_current_user)** — provides the logged-in user shown in the header.
 
 ```sh
 cd /path/to/etherpad
