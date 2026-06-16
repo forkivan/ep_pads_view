@@ -8,13 +8,17 @@ the page, done. No frontend coding required.
 If instead you want to build your own dashboard/site, you don't need this plugin
 at all — just use the JSON from `ep_pads_api` directly.
 
-## Requires
+## Requirements
 
-This plugin reuses the data layers of two sibling plugins in-process, so install
-all three:
+This plugin reuses the data layers of two sibling plugins in-process, so they
+**must** be installed alongside it:
 
 - **[ep_pads_api](https://www.npmjs.com/package/ep_pads_api)** — provides the pad list.
 - **[ep_current_user](https://www.npmjs.com/package/ep_current_user)** — provides the logged-in user shown in the header.
+
+## Install
+
+Install all three together:
 
 ```sh
 cd /path/to/etherpad
