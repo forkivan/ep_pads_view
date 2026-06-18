@@ -8,6 +8,22 @@ the page, done. No frontend coding required.
 If instead you want to build your own dashboard/site, you don't need this plugin
 at all — just use the JSON from `ep_pads_api` directly.
 
+## Screenshots
+
+The page shows who you're logged in as, the total pad count, and a searchable,
+sortable table of every pad with its creator and last-edited date.
+
+![Pad list with the logged-in user and total count, live-filtered by pad name](https://raw.githubusercontent.com/forkivan/ep_pads_view/main/docs/screenshot-1.png)
+
+Filter by **creator** as well as by pad name:
+
+![The same list filtered by creator name](https://raw.githubusercontent.com/forkivan/ep_pads_view/main/docs/screenshot-2.png)
+
+Type a few letters to instantly narrow the list (here 4 of 25 match), with the
+**Last edited** column sorted:
+
+![Typing into the filter narrows the list to 4 of 25 matches, sorted by last edited](https://raw.githubusercontent.com/forkivan/ep_pads_view/main/docs/screenshot-3.png)
+
 ## Requirements
 
 This plugin reuses the data layers of two sibling plugins in-process, so they
